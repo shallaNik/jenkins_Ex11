@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -5,7 +6,8 @@ pipeline {
         stage ('Compile Stage') {
 
             steps {
-                    echo "hello"
+                withMaven(maven : 'maven_3_5_0') {
+                    sh 'mvn clean compile'
                 }
             }
         }
@@ -13,16 +15,19 @@ pipeline {
         stage ('Testing Stage') {
 
             steps {
-                      echo "hiiii"
+                withMaven(maven : 'maven_3_5_0') {
+                    sh 'mvn test'
                 }
             }
-        
+        }
 
 
         stage ('Deployment Stage') {
             steps {
-                    echo "how are you!!"
+                withMaven(maven : 'maven_3_5_0') {
+                    sh 'mvn deploy'
                 }
             }
+        }
+    }
 }
-  
